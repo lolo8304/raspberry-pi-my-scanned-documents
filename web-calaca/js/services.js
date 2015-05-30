@@ -33,8 +33,8 @@ Calaca.factory('calacaService', ['$q', 'esFactory','$sce', '$location', function
                     "from": offset,
                     "query": {
                         "query_string": {
-                            "query": "*"+query+"*",
-                            "analyze_wildcard": "true"
+                            "query": CALACA_CONFIGS.analyzeWildcards ? "*"+query+"*" : query,
+                            "analyze_wildcard": CALACA_CONFIGS.analyzeWildcards.toString()
                         }
                     }
                 }
@@ -49,7 +49,7 @@ Calaca.factory('calacaService', ['$q', 'esFactory','$sce', '$location', function
                     source._type = hitsIn[i]._type;
                     source._score = hitsIn[i]._score;
                     source._markedText = $sce.trustAsHtml(source.text.mark(query.toLowerCase()));
-                    source._markedAndCutText = $sce.trustAsHtml(source.text.markAndCut(query.toLowerCase(), 40, "...."));
+                    source._markedAndCutText = $sce.trustAsHtml(source.text.markAndCut(query.toLowerCase(), CALACA_CONFIGS.markSeperatorLength, CALACA_CONFIGS.markSeperator));
                     hitsOut.push(source);
                 }
                 deferred.resolve({ timeTook: result.took, hitsCount: result.hits.total, hits: hitsOut });

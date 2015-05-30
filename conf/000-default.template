@@ -1,0 +1,72 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+
+	# point the root folder to the web-calaca folder
+	DocumentRoot /your/directory/web-calaca
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+				
+		# section for authentication
+		AuthType Basic
+		AuthName "My documents"
+		# point to central .htpasswd. uptoyou how to handle user access
+		AuthUserFile /your/directory/conf/.htpasswd
+		Require valid-user
+	</Directory>
+	
+	# settings for the web-calaca folder
+	<Directory /your/directory/web-calaca>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+		
+		# default OCR files created by tesseract are UTF-8
+		AddDefaultCharset utf-8
+		
+		# section for authentication
+		AuthType Basic
+		AuthName "My documents"
+		# point to central .htpasswd. uptoyou how to handle user access
+		AuthUserFile /your/directory/conf/.htpasswd
+		Require valid-user
+	</Directory>
+
+	# define an alias /documents and point to archive
+	Alias /documents /your/directory/archive
+	<Directory /your/directory/archive>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+
+		# default OCR files created by tesseract are UTF-8
+        AddDefaultCharset utf-8
+		
+		# section for authentication
+		AuthType Basic
+		AuthName "My documents"
+		# point to central .htpasswd. uptoyou how to handle user access
+		AuthUserFile /your/directory/conf/.htpasswd
+		Require valid-user
+	</Directory>
+
+	# define Authentication information to proxy /elasticsearch 
+	# see proxy.conf for further information about proxy settings
+	<Location /elasticsearch>
+		# section for authentication
+		AuthType Basic
+		AuthName "My documents"
+		# point to central .htpasswd. uptoyou how to handle user access
+		AuthUserFile /your/directory/conf/.htpasswd
+		Require valid-user
+	</Location>
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

@@ -23,5 +23,8 @@ var CALACA_CONFIGS = {
 	index_name: "scan",
 	type: "ocr",
 	size: 10,
-	search_delay: 500
+	search_delay: 500,
+	analyzeWildcards: true,
+	markSeperator: "...",
+	markSeperatorLength: 40
 }
