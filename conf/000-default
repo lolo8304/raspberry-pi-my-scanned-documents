@@ -1,0 +1,52 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+
+	DocumentRoot /opt/scan/web-calaca
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+		AuthType Basic
+		AuthName "My documents"
+		AuthUserFile /opt/scan/conf/.htpasswd
+		Require valid-user
+	</Directory>
+	<Directory /opt/scan/web-calaca>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+		AddDefaultCharset utf-8
+		AuthType Basic
+		AuthName "My documents"
+		AuthUserFile /opt/scan/conf/.htpasswd
+		Require valid-user
+	</Directory>
+
+	Alias /documents /opt/scan/archive
+	<Directory /opt/scan/archive>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                Allow from all
+                AddDefaultCharset utf-8
+		AuthType Basic
+		AuthName "My documents"
+		AuthUserFile /opt/scan/conf/.htpasswd
+		Require valid-user
+	</Directory>
+
+
+	<Location /elasticsearch>
+		AuthType Basic
+                AuthName "My documents"
+                AuthUserFile /opt/scan/conf/.htpasswd
+                Require valid-user	
+	</Location>
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
