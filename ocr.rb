@@ -6,7 +6,7 @@ ARGV.grep(/\.pdf/i).each do |pdf|
       dir = pdf.gsub(/\.pdf/,'')
       dir += '_OCR'
       dir += '.dir' if(dir == pdf)
-      if (!Dir.exists?($basedir+'/archive/'+dir)) 
+      if (!Dir.exists?($basedir+'/archive/'+dir)) and (!Dir.exists?($basedir+'/to-store/'+dir)) 
         Dir.mkdir(dir) unless(File.exist?(dir))
         Dir.chdir(dir)
         puts "Extracting pages from PDF: #{pdf}"

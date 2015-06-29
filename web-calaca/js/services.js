@@ -48,8 +48,9 @@ Calaca.factory('calacaService', ['$q', 'esFactory','$sce', '$location', function
                     source._index = hitsIn[i]._index;
                     source._type = hitsIn[i]._type;
                     source._score = hitsIn[i]._score;
-                    source._markedText = $sce.trustAsHtml(source.text.mark(query.toLowerCase()));
-                    source._markedAndCutText = $sce.trustAsHtml(source.text.markAndCut(query.toLowerCase(), CALACA_CONFIGS.markSeperatorLength, CALACA_CONFIGS.markSeperator));
+                    var text = source.text + " "+source.date;
+                    source._markedText = $sce.trustAsHtml(text.mark(query.toLowerCase()));
+                    source._markedAndCutText = $sce.trustAsHtml(text.markAndCut(query.toLowerCase(), CALACA_CONFIGS.markSeperatorLength, CALACA_CONFIGS.markSeperator));
                     hitsOut.push(source);
                 }
                 deferred.resolve({ timeTook: result.took, hitsCount: result.hits.total, hits: hitsOut });

@@ -96,8 +96,29 @@ sudo dpkg -i elasticsearch-1.5.2.deb
 sudo update-rc.d elasticsearch defaults 95 10
 ```
 
-sudo vi /etc/elasticsearch/elasticsearch.yml
+```bash
+sudo vi /etc/elasticsearch/elasticsearch.yml a
+```
+and update keys based on templates: see 
+	/conf/elasticsearch.template.yml and example
+	/conf/elasticsearch.yml
+and adapt the following keys
+
+```bash
+path.data: /your/directory/elasticsearch/data
+path.work: /your/directory/elasticsearch/work
+path.logs: /your/directory/elasticsearch/logs
+path.plugins: /your/directory/elasticsearch/plugins
+```
+
+start / stop / test elasticsearch
+```bash
+sudo sudo /etc/init.d/elasticsearch restart
+
+```
 
 
-copy github and configure
+
+configure project
 =====================================
+
