@@ -34,6 +34,9 @@ here you see the example with IP: 192.168.0.10 point to NAS directory /volume1/s
 There are many ways of mounting network drives (e.g. NFS or SAMBA). Due to the fact that raspi and my NAS are linux based and the NAS supports NFS access I used NFS for speed reasons
 
 if you have a SYNOLOGY NAS get some help via http://raspberrypi.stackexchange.com/questions/22300/mount-nfs-folder-share-on-rpi-from-a-synology-nas
+you need to configure your shared folder /scan in section "shared folder" and configure and configure "NFS priviledges" and allow your startic IP of your raspi to access the NFS server. if not you will get a permission denied message
+"-o nolock" is very important to be used as additional option
+
 ```bash
 sudo mount 192.168.0.10:/volume1/scan /opt/scan/ -o nolock
 ```
@@ -113,7 +116,7 @@ path.plugins: /your/directory/elasticsearch/plugins
 
 start / stop / test elasticsearch
 ```bash
-sudo sudo /etc/init.d/elasticsearch restart
+sudo /etc/init.d/elasticsearch restart
 
 ```
 
